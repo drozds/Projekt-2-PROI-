@@ -5,50 +5,63 @@
 #include<iostream>
 #include "ClassPoint.h"
 #include "ClassStack.h"
+#include <cstdlib>
 using namespace std;
 
 int main()
 {   
     Stack *stack = new Stack();
-    Point point;
-	
+	Point *point = new Point();
+    Point *temp = new Point();
+
 	cout << "Podaj jedna z instrukcji:\n"
-		 << "1.Add a number\t"
+         << "1.Add a number\t"
 		 << "2.Delete element\t"
 		 << "3.Write stack\t"
-		 << "4.Enter points to add\n";
+		 << "4.Enter points to add\t"
+         << "5.Exit\n" << endl;
 	char instrukcja;
 	while (cin >> instrukcja)
 	{
 		switch (instrukcja)
 		{
 		case '1':
-            cout << "Podaj liczbe do dodania: " << endl;
             
-			stack -> addElement();
+            
+			stack -> addPoint();
 
             break;
 			
 		case '2':
-			stack -> deleteElement();
+			stack -> deletePoint();
+             
 			break;
 		case '3':
-			stack -> writeStack();
+			stack -> showStack();
 			break;
         case '4':
-            Point temp;
+            
             cout << "Enter coordinates of 1st point: " << endl;
-            cin >> point.x >> point.y >> point.z;
+            cin >> point -> x >> point -> y >> point -> z;
             cout << "Enter coordinates of 2nd point: " << endl;
-            cin >> temp.x >> temp.y >> temp.z;
-            cout << temp + point <<endl;
+            cin >> temp -> x >> temp -> y >> temp -> z;
+            cout << *temp + *point <<endl;
             break;
+        case '5':
+            exit(0);
+            
 		default:
-		    cout << "Musisz wybrac jedna z instrukcji:\nd - aby dodac element do stosu, "
-				 << "u - aby usunac element ze stosu lub w - aby wyswietlic zawartosc stosu\n";
 			break;
 		}
-	}
 
+        cout << "Podaj jedna z instrukcji:\n"
+         << "1.Add a number\t"
+		 << "2.Delete element\t"
+		 << "3.Write stack\t"
+		 << "4.Enter points to add\t"
+         << "5.Exit\n" << endl;
+	}
+    delete point;
+    delete stack;
 	return 0;
 }
