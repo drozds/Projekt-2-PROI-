@@ -4,68 +4,67 @@
 #include <iostream>
 #include "ClassPoint.h"
 #include "ClassStack.h"
-
+using namespace std;
 Stack::Stack() {
-  wierzcholek_kolejki = NULL; // lista jest pusta
-	koniec_kolejki = NULL; // lista jest pusta
-  pomoc = NULL; // wskaznik pomocniczy
+  end = NULL;
 }
 
-void Stack::addElement() {
-
-  pomoc = new element; // tworzymy nowy obiekt
-  
-	cin >> pomoc -> liczba;
-  
-	if (wierzcholek_kolejki == NULL) // jezeli kolejka jest pusta
-	{
-  
-		pomoc->nastepny = pomoc->poprzedni = NULL;
-		koniec_kolejki = wierzcholek_kolejki = pomoc; // poczatek i koniec kolejki jest tym samym elementem
-	}
-	else
-	{
+void Stack::addPoint() {
+    Point *newer = new Point();    
+    cout << "Enter x coordinate: " << endl;
+    cin >> newer -> x;
+    cout << "Enter y coordinate: " << endl;
+    cin >> newer -> y;
+    cout << "Enter z coordinate: " << endl;
+    cin >> newer -> z;
     
-		pomoc->nastepny = NULL;
-		koniec_kolejki->nastepny = pomoc; // dodajemy element na koniec wiec, ustawiamy wskaznik na niego w elemencie, ktory byl ostatni
-		pomoc->poprzedni = koniec_kolejki; // poprzednikiem nowego elementu jest dotychczasowy ostatni element
-		koniec_kolejki = pomoc; // ustawiamy koniec kolejki na nowym elemencie
-	}
+
+    if (end == NULL) 
+    {
+    
+        end = newer;
+        end -> prev = NULL;
+    }
+
+    else
+    {
+        
+        help = newer;
+        help -> prev = end;
+        end = help;
+    }
 }
-void Stack::deleteElement() {
-if (wierzcholek_kolejki != NULL)
-			{
-                
+void Stack::deletePoint() {
    
-                pomoc = koniec_kolejki;
-                if (koniec_kolejki == wierzcholek_kolejki ) {
-                    wierzcholek_kolejki = koniec_kolejki = NULL;
-                }
-                else {
-                    koniec_kolejki = koniec_kolejki -> poprzedni;
-                    koniec_kolejki -> nastepny = NULL;
-                    
-                }
-               
-                delete pomoc;
-
-			}
-			else
-				cout << "Kolejka jest pusta\n";
+    if(end != NULL ) {
+        help = end;
+        
+        delete help;
+        
+        end = end -> prev;
+    }
+    else {
+        cout << "Stack is empty\n" << endl;
+    }
+        
+   
+        
+    
+    
 }
-
-void Stack::writeStack() {
-  if (wierzcholek_kolejki != NULL)
-			{
-				cout << "Zawartosc kolejki:\n";
-				pomoc = wierzcholek_kolejki;
-				while (pomoc != NULL) // dopoki pokazujemy na jakis element stosu (listy)
-				{
-					cout << pomoc->liczba << " ";
-					pomoc = pomoc->nastepny; // przechodzimy na nastepny element na liscie
-				}
-			}
-			else
-				cout << "Kolejka jest pusta";
-			cout << endl;
+void Stack::showStack() {
+    help = end;
+    if ( help != NULL ) {
+        
+        while (help) {
+        
+        cout << *help << endl;
+        help = help -> prev;
+        
+        }
+    }
+    else {
+        cout << "Stack is empty\n" <<endl;
+    }
+    
 }
